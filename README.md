@@ -139,6 +139,7 @@ wandb agent <YOUR_SWEEP_ID>
 
 * **LoRA 效能勝出**：LoRA 策略在各項指標均優於 Baseline，其中 `test_f1_score` 提升了 **+3.07%**。
 * **領域適應的必要性**：此對比證實，`EfficientNetV2-S` 效能出色，在 ImageNet 的通用預訓練特徵已可直接處理專業醫學影像任務，但微調仍可明顯提升效能。
+![Linear Probing 與 LoRA 對比](https://upload.cc/i1/2025/11/12/E0YxnR.png)
 ---
 
 ## 運作邏輯與設計思路
