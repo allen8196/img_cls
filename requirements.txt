@@ -1,0 +1,11 @@
+--extra-index-url https://download.pytorch.org/whl/nightly/cu130
+
+torch==2.10.0.dev20251028+cu130
+torchvision==0.25.0.dev20251028+cu130
+torchaudio==2.10.0.dev20251028+cu130
+peft==0.17.1
+scikit-learn==1.7.2
+pandas==2.3.1
+pillow==12.0.0
+tqdm==4.67.1
+wandb==0.22.3

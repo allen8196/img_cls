@@ -1,0 +1,46 @@
+# sweep.yaml
+# Wandb Sweep 配置文件
+
+# 1. 執行的 Python 腳本
+# 我們使用 -m (module) 方式執行
+program: src.main
+
+# 2. 執行的命令
+# wandb agent 會自動填入 ${interpreter} (python) 和 ${program} (src.main)
+command:
+  - ${env}
+  - ${interpreter}
+  - -m
+  - ${program}
+  - ${args}
+
+# 3. 搜索策略
+method: bayes # 使用貝氏優化 (Bayesian Optimization)
+
+# 4. 優化目標
+metric:
+  name: best_val_f1_score # 我們在 main.py 中設定的 summary
+  goal: maximize           # 目標是最大化 F1-score
+
+# 5. 要調校的超參數
+parameters:
+
+  LEARNING_RATE:
+    distribution: log_uniform_values
+    min: 1e-5 # 最小值 0.00001
+    max: 3e-4 # 最大值 0.0003
+
+  LORA_RANK:
+    values: [8, 16, 32] # 嘗試 3 種不同的 Rank
+
+  LORA_ALPHA:
+    # Alpha 通常是 Rank 的 1 倍、2 倍或 4 倍
+    values: [16, 32, 64]
+
+  FOCAL_ALPHA:
+    distribution: uniform
+    min: 0.15 # 預設 0.25，我們在 0.15 ~ 0.35 之間搜索
+    max: 0.35
+
+# 注意：我們 "固定" 了其他參數 (如 BATCH_SIZE=16, IMAGE_SIZE=384)
+# 這些參數將從 config.py 中讀取，因為它們沒有在 sweep.yaml 中定義
